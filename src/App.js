@@ -19,8 +19,23 @@ export default function App($app) {
   const pokemonList = new PokemonList({
     $app,
     initialState: this.state.pokemonList,
-    handleItemClick: () => {},
-    handleTypeClick: () => {},
+    handleItemClick: async (id) => {
+      history.pushState(null, null, `/detail/${id}`);
+      this.setState({
+        ...this.state,
+        currentPage: `detail/${id}`,
+      });
+    },
+    handleTypeClick: async (type) => {
+      history.pushState(null, null, `/${type}`);
+      const pokemonList = await getPokemonList(type);
+      this.setState({
+        ...this.state,
+        pokemonList,
+        type,
+        currentPage,
+      });
+    },
   });
 
   this.setState = (newState) => {
