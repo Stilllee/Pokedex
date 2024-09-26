@@ -1,4 +1,5 @@
 import PokemonList from "./components/PokemonList.js";
+import { getPokemonList } from "./modules/api.js";
 
 export default function App($app) {
   const getSearchWord = () => {
@@ -16,14 +17,15 @@ export default function App($app) {
   };
 
   const pokemonList = new PokemonList({
-    // 코드 작성
+    $app,
+    initialState: this.state.pokemonList,
     handleItemClick: () => {},
     handleTypeClick: () => {},
   });
 
   this.setState = (newState) => {
     this.state = newState;
-    // 코드 작성
+    pokemonList.setState(this.state.pokemonList);
   };
 
   const init = async () => {
