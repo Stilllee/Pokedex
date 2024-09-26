@@ -29,7 +29,15 @@ export default function App($app) {
   };
 
   const init = async () => {
-    // 코드 작성
+    try {
+      const initialPokemonList = await getPokemonList();
+      this.setState({
+        ...this.state,
+        pokemonList: initialPokemonList,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   init();
