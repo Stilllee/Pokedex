@@ -38,6 +38,18 @@ export default function PokemonList({
 
   this.render = () => {
     this.$target.innerHTML = this.template();
+
+    this.$target.querySelectorAll("div.img-wrapper").forEach((elm) => {
+      elm.addEventListener("click", () => {
+        this.handleItemClick(elm.id);
+      });
+    });
+
+    this.$target.querySelectorAll("div.type-tag").forEach((elm) => {
+      elm.addEventListener("click", () => {
+        this.handleTypeClick(elm.id);
+      });
+    });
   };
 
   this.setState = (newState) => {
