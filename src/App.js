@@ -81,6 +81,21 @@ export default function App($app) {
     pokemonList.setState(this.state.pokemonList);
   };
 
+  window.addEventListener("popstate", async () => {
+    const urlPath = window.location.pathname;
+
+    const prevType = urlPath.replace("/", "");
+    const prevSearchWord = getSearchWord();
+    const prevPokemonList = await getPokemonList(prevType, prevSearchWord);
+
+    this.setState({
+      ...this.state,
+      type: prevType,
+      searchWord: prevSearchWord,
+      pokemonList: prevPokemonList,
+    });
+  });
+
   const init = async () => {
     try {
       const initialPokemonList = await getPokemonList();
