@@ -78,12 +78,16 @@ body {
 }
 
 /* POKEMON LIST */
-.pokemon-list {
+.pokemon-list ul {
   padding: 50px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+}
+
+.pokemon-list li {
+  list-style: none;
 }
 
 .pokemon-wrapper {

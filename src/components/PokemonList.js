@@ -10,7 +10,7 @@ export default function PokemonList({
   handleTypeClick,
 }) {
   this.state = initialState;
-  this.$target = document.createElement("div");
+  this.$target = document.createElement("main");
   this.$target.className = "pokemon-list";
 
   $app.appendChild(this.$target);
@@ -21,7 +21,7 @@ export default function PokemonList({
     let temp = [];
     if (this.state) {
       this.state.forEach((elm) => {
-        temp += `<div>
+        temp += `<li>
           <div class="img-wrapper" id="${elm.id}">
             <img src="${elm.img}" alt="${elm.name}"></img>
           </div>
@@ -30,10 +30,10 @@ export default function PokemonList({
             <div class="name">${elm.name}</div>
             <div class="type">${setPokemonType(elm.type)}</div>
           </div>
-        </div>`;
+        </li>`;
       });
     }
-    return temp;
+    return `<ul>${temp}</ul>`;
   };
 
   this.render = () => {
