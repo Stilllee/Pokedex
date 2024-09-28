@@ -5,7 +5,7 @@ import { getPokemonList } from "./modules/api.js";
 export default function App($app) {
   const getSearchWord = () => {
     if (window.location.search.includes("search=")) {
-      return window.location.search.split("search-")[1];
+      return window.location.search.split("search=")[1];
     }
     return "";
   };
@@ -18,13 +18,36 @@ export default function App($app) {
   };
 
   const header = new Header({
-    //코드 작성
     $app,
-    initialState: {},
-    //'포켓몬 도감'을 클릭하면 "/" 홈으로 돌아갈 수 있도록 함수를 완성하세요.
-    handleClick: () => {},
+    initialState: {
+      currentPage: this.state.currentPage,
+      searchWord: this.state.searchWord,
+    },
+    handleClick: async () => {
+      history.pushState(null, null, "/");
+      const pokemonList = await getPokemonList();
+      this.setState({
+        ...this.state,
+        pokemonList,
+        type: "",
+        searchWord: getSearchWord(),
+        currentPage: "/",
+      });
+    },
     //'돋보기 모양'을 누르면 검색 결과를 나타내고, "(기존 url)/?search=searchWord"로 url을 변경하세요.
-    handleSearch: () => {},
+    handleSearch: async (searchWord) => {
+      history.pushState(null, null, `?search=${searchWord}`);
+      const searchPokemonList = await getPokemonList(
+        this.state.type,
+        searchWord
+      );
+      this.setState({
+        ...this.state,
+        searchWord,
+        pokemonList: searchPokemonList,
+        currentPage: `?search=${searchWord}`,
+      });
+    },
   });
 
   const pokemonList = new PokemonList({
@@ -51,7 +74,10 @@ export default function App($app) {
 
   this.setState = (newState) => {
     this.state = newState;
-    //코드 작성
+    header.setState({
+      currentPage: this.state.currentPage,
+      searchWord: this.state.searchWord,
+    });
     pokemonList.setState(this.state.pokemonList);
   };
 
