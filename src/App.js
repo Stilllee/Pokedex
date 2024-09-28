@@ -34,7 +34,7 @@ export default function App($app) {
       history.pushState(null, null, `/detail/${id}`);
       this.setState({
         ...this.state,
-        currentPage: `detail/${id}`,
+        currentPage: `/detail/${id}`,
       });
     },
     handleTypeClick: async (type) => {
