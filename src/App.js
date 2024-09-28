@@ -44,7 +44,7 @@ export default function App($app) {
         ...this.state,
         pokemonList,
         type,
-        currentPage,
+        currentPage: `/${type}`,
       });
     },
   });
